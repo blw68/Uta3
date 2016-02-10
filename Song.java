@@ -1,3 +1,5 @@
+// by Brian Wong and Laszlo Glant
+
 package SongLibView;
 
 import java.io.BufferedReader;
@@ -37,7 +39,7 @@ public class Song {
 	static ArrayList<Song> songList = new ArrayList<Song>();
 	
 	/**
-	 * sort all entries in obsList in alphabetical order
+	 * sort all entries in obsList in alphabetical order, not used
 	 * @param obsList observable list containing songs
 	 */
 	public static void sortAbc(ObservableList<Song> obsList) {
@@ -63,27 +65,40 @@ public class Song {
 	}
 	
 	/**
+	 * sort all entries in songList in alphabetical order
+	 * @param songList array list containing songs
+	 */
+	public static void sortAbcAL(ArrayList<Song> songList) {
+		Collections.sort(songList, new Comparator<Song>() {
+			@Override
+			public int compare(Song s1, Song s2) {
+				return s1.songName.compareToIgnoreCase(s2.songName);
+			}
+		});
+	}
+	
+	/**
 	 * add newSong in correct spot in songList
 	 * @param songList list of songs, should always be in abc order
 	 * @param newSong Song instance that is about to be added into songList
 	 */
-	public static void addInAbcOrder(ArrayList<Song> songList, Song newSong) {
+	public static boolean addInAbcOrder(ArrayList<Song> songList, Song newSong) {
 		if (songList.isEmpty() == true) {
 			// no songs, add songName here
 			songList.add(newSong);
-			return;
+			return true;
 		}
 		
 		if (songList.get(0).songName.compareTo(newSong.songName) > 0) {
 			// songName is even smaller than first element, add at very beginning
 			songList.add(0, newSong);
-			return;
+			return true;
 		}
 		
 		if (songList.get(songList.size() - 1).songName.compareTo(newSong.songName) < 0) {
 			// songName is even bigger than last element, add at very end
 			songList.add(newSong);
-			return;
+			return true;
 		}
 		
 		for (int i = 0; i < songList.size(); i++) {
@@ -91,19 +106,21 @@ public class Song {
 			if (songList.get(i).songName.equals(newSong.songName) && songList.get(i).artist.equals(newSong.artist)) {
 				// duplicate, not allowed
 				System.out.println(newSong.songName + " by " + newSong.artist + " is a duplicate");
-				return;
+				return false;
 			}
 			if (songList.get(i).songName.equals(newSong.songName)) {
 				// songName is already in list, but artist is different, so ok, add here
 				songList.add(i, newSong);
-				return;
+				return true;
 			}
 			if (songList.get(i).songName.compareTo(newSong.songName) > 0) {
 				// insert in index i
 				songList.add(i, newSong);
-				return;
+				return true;
 			}
 		}
+		
+		return false;
 	}
 	
 	/**
@@ -134,10 +151,11 @@ public class Song {
 	/**
 	 * takes in emptyList and file (output.txt) and puts lines in file into emptyList
 	 * @param emptyList list of songs, should be empty when this called
+	 * @param obsList list of song titles, should also be empty when this called
 	 * @param o output.txt
 	 * @return true if success, false otherwise
 	 */
-	public static boolean input(ArrayList<Song> emptyList, File o) {
+	public static boolean input(ArrayList<Song> emptyList, ObservableList<String> obsList, File o) {
 		String line = null;
 		
 		try {
@@ -146,6 +164,7 @@ public class Song {
 			
 			while ((line = bufferedReader.readLine()) != null) {
 				stickIn1Line(emptyList, line);
+				addObs1Entry(obsList, line);
 			}
 			
 			bufferedReader.close();
@@ -157,7 +176,31 @@ public class Song {
 			System.out.println("Error reading file");
 			return false;
 		} catch (Exception e) {
-			System.out.println("Exception in");
+			System.out.println("Exception in Song.input");
+			return false;
+		}
+	}
+	
+	public static boolean inputObs(ObservableList<String> obsList, File o) {
+		String line = null;
+		
+		try {
+			FileReader fileReader = new FileReader(o);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			
+			while ((line = bufferedReader.readLine()) != null) {
+				addObs1Entry(obsList, line);
+			}
+			bufferedReader.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+			return false;
+		} catch (IOException e) {
+			System.out.println("Error reading file");
+			return false;
+		} catch (Exception e) {
+			System.out.println("Exception in Song.inputObs");
 			return false;
 		}
 	}
@@ -174,6 +217,17 @@ public class Song {
 	}
 	
 	/**
+	 * add title of song to obsList
+	 * @param obsList list of song titles
+	 * @param line (songName~artist~album~year)
+	 */
+	public static void addObs1Entry(ObservableList<String> obsList, String line) {
+		String[] strArr = line.split("~");
+		
+		obsList.add(strArr[0]);
+	}
+	
+	/**
 	 * prints out each song in songList, only used for testing purposes
 	 * @param songList list of songs, should always be in abc order
 	 */
@@ -186,6 +240,19 @@ public class Song {
 	public static void printObsList(ObservableList<Song> obsList) {
 		for (int i = 0; i < obsList.size(); i++) {
 			System.out.println(i + " " + obsList.get(i).toString());
+		}
+	}
+	
+	public static void printBothLists(ArrayList<Song> songList, ObservableList<String> obsList) {
+		System.out.println("al size " + songList.size());
+		System.out.println("ol size " + obsList.size());
+		
+		if (obsList.size() == 0) {
+			System.out.println("obslist is empty");
+			return;
+		}
+		for (int i = 0; i < obsList.size(); i++) {
+			System.out.println(i + " " + songList.get(i).toString() + " " + obsList.get(i));
 		}
 	}
 }
