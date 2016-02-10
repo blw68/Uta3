@@ -76,6 +76,30 @@ public class Song {
 			}
 		});
 	}
+	/**
+	 * delete selected song from songList
+	 * 
+	 * @param songList list of songs, should always be in abc order
+	 * @param obsList list of song titles, should always be in abc order
+	 * @param index song will be deleted from songList
+	 * @throws IOException 
+	 */
+	public static boolean deleteSong(ArrayList<Song> songList, ObservableList<String> obsList, int index) throws IOException {
+		if(songList.isEmpty()){
+			return false;
+		}
+		else{
+			songList.remove(index);
+			SongViewController.obsList.remove(index);
+			File file = new File("output.txt");
+			PrintWriter out = new PrintWriter(new FileWriter(file, false), true);
+			for (int i = 0; i < songList.size(); i++) {
+				out.println(songList.get(i).outString());
+			}
+			out.close();
+			return true;
+		}
+	}
 	
 	/**
 	 * add newSong in correct spot in songList
@@ -262,4 +286,3 @@ public class Song {
 		}
 	}
 }
-
