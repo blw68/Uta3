@@ -2,67 +2,66 @@
 
 package SongLibView;
 
+import java.io.File;
+import java.io.IOException;
+
+
+import app.SongLib;
+import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class PopupController {
+public class SongViewController {
+
+	private SongLib songlib;
 	
-	@FXML
-	private TextField title;
-	@FXML
-	private TextField artist;
-	@FXML
-	private TextField album;
-	@FXML
-	private TextField year;
-	@FXML
-	public Button cancelButton, okButton;
+	File f = new File("output.txt");
 	
+	
+	@FXML 
+	public ListView<String> listView;
+
+	//public static ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
+	public static ObservableList<String> obsList = FXCollections.observableArrayList();
+
 	@FXML
-	private void cancelButtonEvent(ActionEvent event) {
-		Stage stage = (Stage) cancelButton.getScene().getWindow();
-		stage.close();
+	private void homeScene() throws IOException {
+		songlib.showMainView();
 	}
 
 	@FXML
-	private void okButtonEvent(ActionEvent event) {
-		try {
-			System.out.println("title is " + title.getText());
-			System.out.println("artist is " + artist.getText());
-			System.out.println("album is " + album.getText());
-			System.out.println("year is " + year.getText());
-			
-			Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
-					
-//			Song.addInAbcOrder(Song.songList, s);
-//			Song.output(Song.songList);
-			
-			Boolean didAdd = Song.addInAbcOrder(Song.songList, SongViewController.obsList, s);
-						
-			if (didAdd == true) {
-				// added new song successfully
-				Song.sortAbcStrings(SongViewController.obsList);
-				Song.sortAbcAL(Song.songList);
-			} else {
-				// was duplicate, did not add, open up pop up that was duplicate
+	private void addButton() throws IOException {
+		SongLib.showAddScene();
+	}
+
+	@FXML
+	private void editButton() throws IOException {
+		SongLib.showEditScene();
+	}
+
+	@FXML
+	private void deleteButton() throws IOException {
+		SongLib.showDeleteScene();
+	}
+	
+	@FXML
+	public void initialize(){
+		
+		// take contents from File f (output.txt) and load into both songList and obsList
+		Song.input(Song.songList, obsList, f);
 				
-			}	
-			
-			Song.printBothLists(Song.songList, SongViewController.obsList);
-			
-		} catch (Exception e) {
-			System.out.println("exception in ok button event");
-			e.printStackTrace(System.out);
-		}
-
-		// close pop up window just like cancel does
-		Stage stage = (Stage) okButton.getScene().getWindow();
-		stage.close();
+		// display entries in obsList
+		listView.setItems(obsList);
+		
+		//Song.printList(Song.songList);
+		//Song.printObsList(obsList);
 	}
+	
 }
