@@ -1,3 +1,5 @@
+// by Brian Wong and Laszlo Glant
+
 package SongLibView;
 
 import javafx.collections.FXCollections;
@@ -31,7 +33,6 @@ public class PopupController {
 	@FXML
 	private void okButtonEvent(ActionEvent event) {
 		try {
-			System.out.println("ok button pressed");
 			System.out.println("title is " + title.getText());
 			System.out.println("artist is " + artist.getText());
 			System.out.println("album is " + album.getText());
@@ -39,10 +40,24 @@ public class PopupController {
 			
 			Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
 					
-			Song.addInAbcOrder(Song.songList, s);
-			Song.output(Song.songList);
-			SongViewController.obsList.add(s.songName);
-			Song.sortAbcStrings(SongViewController.obsList);
+//			Song.addInAbcOrder(Song.songList, s);
+//			Song.output(Song.songList);
+			
+			Boolean didAdd = Song.addInAbcOrder(Song.songList, s);
+			
+			
+			if (didAdd == true) {
+				// added new song successfully
+				SongViewController.obsList.add(s.songName);
+				//Song.sortAbcStrings(SongViewController.obsList);
+				//Song.sortAbcAL(Song.songList);
+			} else {
+				// was duplicate, did not add, open up pop up that was duplicate
+				
+			}	
+			
+			Song.printBothLists(Song.songList, SongViewController.obsList);
+			
 		} catch (Exception e) {
 			System.out.println("exception in ok button event");
 			e.printStackTrace(System.out);
