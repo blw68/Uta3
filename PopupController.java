@@ -38,6 +38,8 @@ public class PopupController {
 			System.out.println("album is " + album.getText());
 			System.out.println("year is " + year.getText());
 			
+			// check if title and artist are empty or not, can't be
+			
 			Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
 					
 //			Song.addInAbcOrder(Song.songList, s);
@@ -49,12 +51,16 @@ public class PopupController {
 				// added new song successfully
 				Song.sortAbcStrings(SongViewController.obsList);
 				Song.sortAbcAL(Song.songList);
+				
+				Song.output(Song.songList);
+				
 			} else {
 				// was duplicate, did not add, open up pop up that was duplicate
 				
 			}	
 			
 			Song.printBothLists(Song.songList, SongViewController.obsList);
+			
 			
 		} catch (Exception e) {
 			System.out.println("exception in ok button event");
