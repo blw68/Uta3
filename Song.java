@@ -59,7 +59,7 @@ public class Song {
 		Collections.sort(obsList, new Comparator<String>() {
 			@Override
 			public int compare(String s1, String s2) {
-				return s1.compareTo(s2);
+				return s1.compareToIgnoreCase(s2);
 			}
 		});
 	}
@@ -80,24 +80,28 @@ public class Song {
 	/**
 	 * add newSong in correct spot in songList
 	 * @param songList list of songs, should always be in abc order
+	 * @param obsList list of song titles, should always be in abc order
 	 * @param newSong Song instance that is about to be added into songList
 	 */
-	public static boolean addInAbcOrder(ArrayList<Song> songList, Song newSong) {
+	public static boolean addInAbcOrder(ArrayList<Song> songList, ObservableList<String> obsList, Song newSong) {
 		if (songList.isEmpty() == true) {
 			// no songs, add songName here
 			songList.add(newSong);
+			obsList.add(newSong.songName);
 			return true;
 		}
 		
 		if (songList.get(0).songName.compareTo(newSong.songName) > 0) {
 			// songName is even smaller than first element, add at very beginning
 			songList.add(0, newSong);
+			obsList.add(newSong.songName);
 			return true;
 		}
 		
 		if (songList.get(songList.size() - 1).songName.compareTo(newSong.songName) < 0) {
 			// songName is even bigger than last element, add at very end
 			songList.add(newSong);
+			obsList.add(newSong.songName);
 			return true;
 		}
 		
@@ -111,11 +115,13 @@ public class Song {
 			if (songList.get(i).songName.equals(newSong.songName)) {
 				// songName is already in list, but artist is different, so ok, add here
 				songList.add(i, newSong);
+				obsList.add(i, newSong.songName);
 				return true;
 			}
 			if (songList.get(i).songName.compareTo(newSong.songName) > 0) {
 				// insert in index i
 				songList.add(i, newSong);
+				obsList.add(i, newSong.songName);
 				return true;
 			}
 		}
