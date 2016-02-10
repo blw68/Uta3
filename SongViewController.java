@@ -1,5 +1,6 @@
-package SongLibView;
+// by Brian Wong and Laszlo Glant
 
+package SongLibView;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +28,8 @@ public class SongViewController {
 	@FXML 
 	public ListView<String> listView;
 
-	public static ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
-	
+	//public static ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
+	public static ObservableList<String> obsList = FXCollections.observableArrayList();
 
 	@FXML
 	private void homeScene() throws IOException {
@@ -53,8 +54,12 @@ public class SongViewController {
 	@FXML
 	public void initialize(){
 		
-		Song.input(Song.songList, f);
+		// take contents from File f (output.txt) and load into both songList and obsList
+		Song.input(Song.songList, obsList, f);
+				
+		// display entries in obsList
 		listView.setItems(obsList);
+		
 		//Song.printList(Song.songList);
 		//Song.printObsList(obsList);
 	}
