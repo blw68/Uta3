@@ -41,10 +41,36 @@ public class PopupController {
 			System.out.println("album is " + album.getText());
 			System.out.println("year is " + year.getText());*/
 			
-			// check if title and artist are empty or not, can't be
+			// check if title and artist are empty or not, can't be empty
+			if (title.getText().length() == 0 || artist.getText().length() == 0) {
+				Stage stage = (Stage) okButton.getScene().getWindow();
+				stage.close();
+				return;
+			}
 			
-			Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
-					
+			// check if year is valid or not
+			boolean validYear = isYear(year.getText());
+			
+			if (validYear == false) {
+				// year is not valid, should not add, close window
+				Stage stage = (Stage) okButton.getScene().getWindow();
+				stage.close();
+				return;
+			}
+			
+			Song s;
+			if (year.getText().length() == 0) {
+				// yeal is left blank, add -1 as year
+				s = new Song(title.getText(), artist.getText(), album.getText(), -1);
+			} else if (validYear == true) {
+				// year is valid, create Song instance to add in normally
+				System.out.println("valid song");
+				s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));				
+			} else {
+				// year is not valid, make different Song instance to add in
+				System.out.println("invalid song");
+				s = new Song(title.getText(), artist.getText(), album.getText(), -1);
+			}
 //			Song.addInAbcOrder(Song.songList, s);
 //			Song.output(Song.songList);
 			
@@ -74,6 +100,43 @@ public class PopupController {
 		Stage stage = (Stage) okButton.getScene().getWindow();
 		stage.close();
 	}
+	
+	/**
+	 * return true if String year is valid (ex. 1234), false if invalid (ex. 1234a)
+	 * @param year String taken from text field in pop up window
+	 * @return
+	 */
+	private boolean isYear(String year) {
+		if (year.length() == 0) {
+			// empty
+			System.out.println("year is empty");
+			return true;
+		}
+		
+		boolean allNums = true;
+		
+		for (int i = 0; i < year.length(); i++) {
+			if (isNum(year.charAt(i)) == false) {
+				// there is a character that is not a number (ex. c, ~, etc), not valid year
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * checks whether char c is a space or a number, returns true if so, return false if c is not a valid character in year
+	 * @param c one character in year
+	 * @return
+	 */
+	private boolean isNum(char c) {
+		if (c == ' ' || c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//@FXML
 	private boolean isDigit(TextField year) {
 		if (!(year.getText() == null || year.getText().length() == 0)) {
@@ -81,7 +144,7 @@ public class PopupController {
 	            // Do all the validation you need here such as
 	            Integer.parseInt(year.getText());
 	            return true;
-	        }catch (NumberFormatException e) { 
+	        } catch (NumberFormatException e) { 
 	        	return false;
 	        }
 		}
