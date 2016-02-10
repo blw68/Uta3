@@ -21,14 +21,22 @@ import javafx.stage.Stage;
 public class SongViewController {
 
 	private SongLib songlib;
-	
+	public static int index;
 	File f = new File("output.txt");
-	
+
+
+	/**********************************************************************************/
+	@FXML
+	private TextField artist;									//NEW CODE
+	@FXML
+	private TextField album;
+	@FXML
+	private TextField year;
+	/***********************************************************************************/
 	
 	@FXML 
 	public ListView<String> listView;
 
-	//public static ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
 	public static ObservableList<String> obsList = FXCollections.observableArrayList();
 
 	@FXML
@@ -48,6 +56,7 @@ public class SongViewController {
 
 	@FXML
 	private void deleteButton() throws IOException {
+		index = listView.getSelectionModel().getSelectedIndex();
 		SongLib.showDeleteScene();
 	}
 	
@@ -59,7 +68,7 @@ public class SongViewController {
 				
 		// display entries in obsList
 		listView.setItems(obsList);
-		
+		listView.getSelectionModel().select(0);
 		//Song.printList(Song.songList);
 		//Song.printObsList(obsList);
 	}
