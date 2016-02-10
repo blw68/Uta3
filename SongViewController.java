@@ -33,7 +33,6 @@ public class SongViewController {
 	@FXML
 	private TextField year;
 	
-	
 	@FXML 
 	public ListView<String> listView;
 
