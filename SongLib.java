@@ -1,5 +1,3 @@
-// by Brian Wong and Laszlo Glant
-
 package app;
 
 import java.io.BufferedReader;
@@ -40,7 +38,27 @@ public class SongLib extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		SongLib.primaryStage = primaryStage;
 		SongLib.primaryStage.setTitle("Song Library");
+		
+		System.out.println("calling start");
+		//ArrayList<Song> songList = new ArrayList<Song>();
+		
+		//File f = new File("output.txt"); //filling an arrayList for testing
+		//Song.input(songList, f);
+		
+		//Song.printList(songList);
+		
+		//addInAbcOrder(songList, s);
+		
+		//This part should populate the listView (Title) field 
+		/*ListView<Song> listView = new ListView<>();
+		ObservableList<Song> obsList = FXCollections.observableArrayList(songList);
+		System.out.println("printing obs list");
+		Song.printObsList(obsList);
+		listView.setItems(obsList);
+		*/
 		showMainView();
+		
+		System.out.println("end of start");
 	}
 	
 	public void showMainView() throws IOException {
@@ -50,9 +68,35 @@ public class SongLib extends Application {
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		
+		try {
+			String title = "Ode to Joy";
+			String artist = "Beethoven";
+						
+//			obsList = FXCollections.observableArrayList();
+//			obsList.add(s);
+//			
+//			listView = new ListView(obsList);
+//			
+//			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//				public void changed(ObservableValue ov, Object t, Object t1) {
+//					title.setText((String) t1);
+//				}
+//			});
+//			
+////			listView.getSelectionModel().select(0);
+////			
+//			System.out.println("before set items in list view");
+//			listView.setItems(obsList);
+		} catch (Exception e) {
+			System.out.println("exception in ok button event");
+			e.printStackTrace(System.out);
+		}
 	}
 	
 	public static void showAddScene() throws IOException {
+		// add button
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
 		addNewSong = loader.load();
@@ -63,9 +107,13 @@ public class SongLib extends Application {
 		Scene scene = new Scene (addNewSong);
 		addWindow.setScene(scene);
 		addWindow.showAndWait();
+		
+		// get text field for title
+		//String songName = titlePopup;
 	}
 	
 	public static void showEditScene() throws IOException {
+		// edit button
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
 		editSong = loader.load();
@@ -79,9 +127,10 @@ public class SongLib extends Application {
 	}
 	
 	public static void showDeleteScene() throws IOException {
+		// delete button
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
-		deleteSong = loader.load();
+		loader.setLocation(SongLib.class.getResource("/SongLibView/DeletePopup.fxml"));
+		deleteSong = loader.load();		// title of pop up
 		Stage addWindow = new Stage();
 		addWindow.setTitle("Delete Song");
 		addWindow.initModality(Modality.WINDOW_MODAL);
@@ -89,9 +138,12 @@ public class SongLib extends Application {
 		Scene scene = new Scene (deleteSong);
 		addWindow.setScene(scene);
 		addWindow.showAndWait();
+		//System.out.println("end of delete scene, activates when hit x");
 	}
 
 	public static void main(String[] args) {
+		// 1. create array list
+		
 		launch(args);
 	}
 }
