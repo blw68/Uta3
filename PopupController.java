@@ -43,14 +43,12 @@ public class PopupController {
 //			Song.addInAbcOrder(Song.songList, s);
 //			Song.output(Song.songList);
 			
-			Boolean didAdd = Song.addInAbcOrder(Song.songList, s);
-			
-			
+			Boolean didAdd = Song.addInAbcOrder(Song.songList, SongViewController.obsList, s);
+						
 			if (didAdd == true) {
 				// added new song successfully
-				SongViewController.obsList.add(s.songName);
-				//Song.sortAbcStrings(SongViewController.obsList);
-				//Song.sortAbcAL(Song.songList);
+				Song.sortAbcStrings(SongViewController.obsList);
+				Song.sortAbcAL(Song.songList);
 			} else {
 				// was duplicate, did not add, open up pop up that was duplicate
 				
