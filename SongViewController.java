@@ -25,14 +25,14 @@ public class SongViewController {
 	File f = new File("output.txt");
 
 
-	/**********************************************************************************/
+	
 	@FXML
-	private TextField artist;									//NEW CODE
+	private TextField artist;
 	@FXML
 	private TextField album;
 	@FXML
 	private TextField year;
-	/***********************************************************************************/
+	
 	
 	@FXML 
 	public ListView<String> listView;
