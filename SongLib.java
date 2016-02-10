@@ -1,3 +1,5 @@
+// by Brian Wong and Laszlo Glant
+
 package app;
 
 import java.io.BufferedReader;
