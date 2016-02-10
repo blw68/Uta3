@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class DeleController {
+public class DeleteController {
 
 	@FXML
 	public Button noButton, yesButton;
