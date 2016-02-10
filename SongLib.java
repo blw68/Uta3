@@ -1,5 +1,3 @@
-// by Brian Wong and Laszlo Glant
-
 package app;
 
 import java.io.BufferedReader;
@@ -53,6 +51,7 @@ public class SongLib extends Application {
 	}
 	
 	public static void showAddScene() throws IOException {
+		// add button is pressed
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
 		addNewSong = loader.load();
@@ -66,6 +65,7 @@ public class SongLib extends Application {
 	}
 	
 	public static void showEditScene() throws IOException {
+		// edit button is pressed
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
 		editSong = loader.load();
@@ -79,16 +79,17 @@ public class SongLib extends Application {
 	}
 	
 	public static void showDeleteScene() throws IOException {
+		// delete button is pressed
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
-		deleteSong = loader.load();
+		loader.setLocation(SongLib.class.getResource("/SongLibView/DeletePopup.fxml"));
+		deleteSong = loader.load();	
 		Stage addWindow = new Stage();
 		addWindow.setTitle("Delete Song");
 		addWindow.initModality(Modality.WINDOW_MODAL);
-		addWindow.initOwner(primaryStage);
+		addWindow.initOwner(primaryStage);		
 		Scene scene = new Scene (deleteSong);
 		addWindow.setScene(scene);
-		addWindow.showAndWait();
+		addWindow.showAndWait();		
 	}
 
 	public static void main(String[] args) {
