@@ -10,9 +10,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SongLibView.SongViewController">
    <children>
       <ListView id="titleMain" fx:id="listView" layoutX="24.0" layoutY="56.0" prefHeight="324.0" prefWidth="200.0" />
-      <TextField id="artistMain" layoutX="242.0" layoutY="56.0" prefHeight="25.0" prefWidth="150.0" />
-      <TextField id="albumMain" layoutX="411.0" layoutY="56.0" prefHeight="25.0" prefWidth="150.0" />
-      <TextField id="yearMain" layoutX="575.0" layoutY="56.0" prefHeight="25.0" prefWidth="65.0" />
+      <TextField fx:id="artist" layoutX="242.0" layoutY="56.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="album" layoutX="411.0" layoutY="56.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="year" layoutX="575.0" layoutY="56.0" prefHeight="25.0" prefWidth="65.0" />
       <Text layoutX="110.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
       <Text layoutX="304.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
       <Text layoutX="469.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" />
