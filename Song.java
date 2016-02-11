@@ -140,10 +140,12 @@ public class Song {
 				// songName is already in list, but artist is different, so ok, add here
 				songList.add(i, newSong);
 				obsList.add(i, newSong.songName);
+				SongViewController.index = i;
 				return true;
 			}
 			if (songList.get(i).songName.compareTo(newSong.songName) > 0) {
 				// insert in index i
+				SongViewController.index = i;
 				songList.add(i, newSong);
 				obsList.add(i, newSong.songName);
 				return true;
