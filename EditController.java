@@ -72,8 +72,9 @@ public class EditController {
 				s = new Song(title.getText(), artist.getText(), album.getText(), -1);
 			}
 			int index = SongViewController.index;
+			System.out.println("index is before add: "+index);
 			Boolean didAdd = Song.addInAbcOrder(Song.songList, SongViewController.obsList, s);
-
+			System.out.println("index is after add: "+index);
 			if (didAdd) {
 				System.out.println("in didAdd");
 				// added new song successfully then delete the unedited version
