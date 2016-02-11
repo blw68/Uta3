@@ -25,13 +25,17 @@ public class SongViewController {
 	File f = new File("output.txt");
 
 
-	
+
+	// main scene text fields (artist, album, year)
 	@FXML
 	private TextField artist;
 	@FXML
 	private TextField album;
 	@FXML
 	private TextField year;
+	
+	
+	
 	
 	@FXML 
 	public ListView<String> listView;
@@ -56,7 +60,11 @@ public class SongViewController {
 	@FXML
 	private void deleteButton() throws IOException {
 		index = listView.getSelectionModel().getSelectedIndex();
+		if (Song.songList.size() == 0) {
+			return;
+		}
 		SongLib.showDeleteScene();
+		listView.getSelectionModel().select(index);
 	}
 	
 	@FXML
@@ -70,6 +78,8 @@ public class SongViewController {
 		listView.getSelectionModel().select(0);
 		//Song.printList(Song.songList);
 		//Song.printObsList(obsList);
+		
+		//System.out.println(artist.getText());
 	}
 	
 }
