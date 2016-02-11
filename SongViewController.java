@@ -27,18 +27,14 @@ public class SongViewController implements Initializable{
 	File f = new File("output.txt");
 
 
-
-	// main scene text fields (artist, album, year)
+	
 	@FXML
 	private TextField artist;
 	@FXML
 	private TextField album;
 	@FXML
 	private TextField year;
-
-
-
-
+	
 	@FXML 
 	public ListView<String> listView;
 
@@ -57,6 +53,7 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private void editButton() throws IOException {
+		index = listView.getSelectionModel().getSelectedIndex();
 		SongLib.showEditScene();
 		if(Song.songList.size() == 0){
 			return;
@@ -67,13 +64,15 @@ public class SongViewController implements Initializable{
 	@FXML
 	private void deleteButton() throws IOException {
 		index = listView.getSelectionModel().getSelectedIndex();
-		if (Song.songList.size() == 0) {
+		if(Song.songList.size() == 0){
 			return;
 		}
 		SongLib.showDeleteScene();
 		listView.getSelectionModel().select(index);
+		
 	}
-
+		
+	
 	@FXML
 	public void initialize(){
 		System.out.println("in initialize");
@@ -89,7 +88,6 @@ public class SongViewController implements Initializable{
 		//artist.setText("Hello");
 		//System.out.println(artist.getText());
 	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// take contents from File f (output.txt) and load into both songList and obsList
@@ -104,5 +102,5 @@ public class SongViewController implements Initializable{
 		album.setText("Album");
 		year.setText("1234");
 	}
-
+	
 }
