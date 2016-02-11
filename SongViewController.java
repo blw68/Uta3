@@ -52,11 +52,16 @@ public class SongViewController implements Initializable{
 	@FXML
 	private void addButton() throws IOException {
 		SongLib.showAddScene();
+		listView.getSelectionModel().select(index);
 	}
 
 	@FXML
 	private void editButton() throws IOException {
 		SongLib.showEditScene();
+		if(Song.songList.size() == 0){
+			return;
+		}
+		listView.getSelectionModel().select(index);
 	}
 
 	@FXML
