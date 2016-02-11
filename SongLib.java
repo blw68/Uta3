@@ -78,7 +78,7 @@ public class SongLib extends Application {
 
 	public static void showEditScene() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(SongLib.class.getResource("/SongLibView/PopUpWindow.fxml"));
+		loader.setLocation(SongLib.class.getResource("/SongLibView/EditPopup.fxml"));
 		editSong = loader.load();
 		Stage addWindow = new Stage();
 		addWindow.setTitle("Edit Song");
