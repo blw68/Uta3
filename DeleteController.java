@@ -1,3 +1,5 @@
+// by Brian Wong and Laszlo Glant
+
 package SongLibView;
 
 import java.io.IOException;
@@ -21,7 +23,6 @@ public class DeleteController {
 	@FXML
 	private void yesButtonEvent(ActionEvent event) throws IOException {
 		Song.deleteSong(Song.songList, SongViewController.obsList, SongViewController.index);
-		
 		Stage stage = (Stage) yesButton.getScene().getWindow();
 		stage.close();
 	}
