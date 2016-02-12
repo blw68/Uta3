@@ -21,6 +21,8 @@ public class Song {
 	public String album;
 	public int year;
 	
+	public static int addIndex;
+	
 	public Song(String songName, String artist, String album, int year) {
 		this.songName = songName;
 		this.artist = artist;
@@ -118,7 +120,7 @@ public class Song {
 		if (songList.get(0).songName.compareTo(newSong.songName) > 0) {
 			// songName is even smaller than first element, add at very beginning
 			songList.add(0, newSong);
-			obsList.add(newSong.songName);
+			obsList.add(0, newSong.songName);
 			return true;
 		}
 		
@@ -130,6 +132,7 @@ public class Song {
 		}
 		
 		for (int i = 0; i < songList.size(); i++) {
+			addIndex=i;
 			// search for correct location
 			if (songList.get(i).songName.equals(newSong.songName) && songList.get(i).artist.equals(newSong.artist)) {
 				// duplicate, not allowed
