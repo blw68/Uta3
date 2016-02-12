@@ -1,3 +1,5 @@
+// by Brian Wong and Laszlo Glant
+
 package SongLibView;
 
 import javafx.event.ActionEvent;
